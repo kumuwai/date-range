@@ -1,0 +1,23 @@
+{
+    "name": "kumuwai/date_range",
+    "description": "Conveniently format and use Carbon date ranges",
+    "require": {
+        "nesbot/carbon": "~1.14.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joel Hatch",
+            "email": "joel@kumuwai.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Kumuwai\\DateRange\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
