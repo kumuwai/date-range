@@ -14,10 +14,7 @@ class FormattedCarbon
 
     public function __construct($time = null, $tz = null, $config = null)
     {
-    	if ( $config )
-    		$this->config = $config;
-    	else
-    		$this->config = new Config;
+    	$this->config = $config ?: new Config;
 
     	if (is_numeric($time) && $time == self::NONE)
     		return $this->isNotApplicable = True;
@@ -75,10 +72,26 @@ class FormattedCarbon
 		return $this->carbon->format('Y-m-d H:i:s');
 	}
 
+	public function __toString()
+	{
+		return $this->style('default');
+	}
+
+	public function __isset($name)
+	{
+        try {
+            $result = $this->__get($name);
+        } catch (InvalidArgumentException $e) {
+            return false;
+        }
+
+        return ($result !== '');
+	}
+
 	public function __get($name)
 	{
 		if ($this->isNotApplicable)
-			return '';  // maybe throw an exception?
+			return '';  // maybe throw an InvalidArgumentException?
 
 		if (isset($this->carbon->$name)) 
 			return $this->carbon->$name;

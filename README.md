@@ -47,10 +47,10 @@ When you create a FormattedCarbon object, it can be used just like a Carbon obje
 
 It will also use the above formats to output Carbon strings, so each of these are functionally equivalent:
 
-    $date->getCarbon()->toAtomString();
-    $date->toAtomString();
-    $date->style('atom');
-    $date->atom;
+    $date->getCarbon()->toAtomString();     // will always be Carbon value
+    $date->toAtomString();                  // will always be Carbon value
+    $date->style('atom');                   // can be overridden in config file
+    $date->atom;                            // can be overridden in config file
 
 Please note that any custom-defined styles in the configuration file will override the default Carbon values. Carbon specifies these string output functions:
 
