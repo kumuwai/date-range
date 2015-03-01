@@ -224,7 +224,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('',$test->some_random_non_existent_property_name);
 	}
 
-	public function testReturnIsSetValueDependingOnWhetherAGetterIsValid()
+	public function testReturnIssetValueDependingOnWhetherAGetterIsValid()
 	{
 		$test = new FormattedCarbon;
 		$this->assertTrue(isset($test->day));

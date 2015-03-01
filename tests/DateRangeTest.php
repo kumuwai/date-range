@@ -19,12 +19,7 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
 		Carbon::setTestNow();
 	}
 
-	public function testExists()
-	{
-		$test = new DateRange;
-	}
-
-	public function testDefaultToFormattedCarbonObjectSetToNow()
+	public function testDefaultsToFormattedCarbonObjectSetToNow()
 	{
 		$test = new DateRange;
 		$this->assertInstanceOf('Kumuwai\DateRange\FormattedCarbon', $test->start());
@@ -54,17 +49,25 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('date=2015-02-22T144834-1000', $test->style('url'));		
 	}
 
-	public function testWillReturnEmptyStringIfUnknownFormatRequested()
+	public function testReturnsEmptyStringIfUnknownFormatRequested()
 	{
 		$test = new DateRange('2/22/15 2:48:34pm', Null, 'HST');
 		$this->assertEquals('', $test->style('some_unknown_format'));		
 	}
 
-	public function testReturnDefaultStyleIfStringRequested()
+	public function testReturnsDefaultStyleIfStringRequested()
 	{
 		$test = new DateRange('2/22/15 2:48:34pm', Null, 'HST');
 		$this->assertEquals('2/22/2015', $test->style('default'));
 		$this->assertEquals('2/22/2015', $test);
+	}
+
+	public function testCanReturnListOfStyles()
+	{
+		$config = Mockery::mock('Config');
+		$config->shouldReceive('get')->atLeast()->once()->andReturn(['x']);
+		$test = new DateRange(Null, Null, Null, $config);
+		$this->assertEquals(['x'], $test->getStyles());
 	}
 
 	/**

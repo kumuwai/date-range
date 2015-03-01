@@ -32,6 +32,13 @@ class DateRange
 		return $this->end;
 	}
 
+	public function getStyles()
+	{
+		return $this->config->get('date-range::range')
+			+ $this->config->get('date-range::styles')
+			+ $this->config->get('date-range::calculations');
+	}
+
 	public function style($style)
 	{
 		$output = $this->getOutputForStartOrEndDates($style);
