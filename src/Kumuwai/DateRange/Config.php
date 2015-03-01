@@ -1,6 +1,5 @@
 <?php namespace Kumuwai\DateRange;
 
-class FileNotFoundException extends \Exception {}
 
 /**
  * This is a stub to return Laravel-style configuration settings 
