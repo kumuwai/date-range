@@ -10,7 +10,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->now = Carbon::parse('2015-02-22 12:48:34pm');
+		$this->now = Carbon::parse('2015-02-22 2:48:34pm');
 		Carbon::setTestNow($this->now);
 	}
 
@@ -70,7 +70,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 	{
 		$date = new Carbon($this->now);
 		$test = new FormattedCarbon($date);
-		$this->assertEquals('2015-02-22 12:48:34', $test->toSql());
+		$this->assertEquals('2015-02-22 14:48:34', $test->toSql());
 		$this->assertEquals(False, $test->isNone());
 	}
 
@@ -89,7 +89,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 	public function testCanCreateWithOtherFormattedCarbonObject()
 	{
 		$test = new FormattedCarbon(new FormattedCarbon);
-		$this->assertEquals('2015-02-22 12:48:34', $test->toSql());
+		$this->assertEquals('2015-02-22 14:48:34', $test->toSql());
 	}
 
 	/**
@@ -104,18 +104,18 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 
 	public function getCarbonConstructors()
 	{
-		$result = '2015-02-22 12:48:34';
+		$result = '2015-02-22 14:48:34';
 
 		return array(
-			['instance', [new DateTime('2/22/2015 12:48:34pm')], $result],
-   			['parse', ['02/22/2015 12:48:34'], $result],
+			['instance', [new DateTime('2/22/2015 2:48:34pm')], $result],
+   			['parse', ['02/22/2015 14:48:34'], $result],
 		    ['now', [], $result],
 		    ['today', [], '2015-02-22 00:00:00'],
 		    ['tomorrow', [], '2015-02-23 00:00:00'],
 			['yesterday', [], '2015-02-21 00:00:00'],
-            ['create', [2015, 2, 22, 12, 48, 34], $result],
-            ['createFromFormat', ['YmdHis', '20150222124834'], $result],
-            ['createFromFormat', ['Y-m-d-H-i-s', '2015-02-22-12-48-34'], $result],
+            ['create', [2015, 2, 22, 14, 48, 34], $result],
+            ['createFromFormat', ['YmdHis', '20150222144834'], $result],
+            ['createFromFormat', ['Y-m-d-H-i-s', '2015-02-22-14-48-34'], $result],
             ['createFromTimestamp', [1422857565], '2015-02-01 20:12:45'],
 		    // ['maxValue', [], Carbon::maxValue()],		// too big to be valid
 		    // ['minValue', [], Carbon::minValue()],		// too big to be valid??
@@ -128,7 +128,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 	public function testCanCopy()
 	{
 		$test = (new FormattedCarbon)->copy();
-		$this->assertEquals('2015-02-22 12:48:34', $test->toSql());
+		$this->assertEquals('2015-02-22 14:48:34', $test->toSql());
 	}
 
 	/**
@@ -144,7 +144,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 		return array(
 			['month', 2],
 			['year', 2015],
-			['timestamp', 1424645314],
+			['timestamp', 1424652514],
 		);
 	}
 
@@ -152,13 +152,13 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 	{
 		$test = new FormattedCarbon;
 		$test->month = 4;
-		$this->assertEquals('2015-04-22 12:48:34', $test->toSql());
+		$this->assertEquals('2015-04-22 14:48:34', $test->toSql());
 	}
 
 	public function testCanGetDateString()
 	{
 		$test = new FormattedCarbon;
-		$this->assertEquals('2015-02-22 12:48:34', $test->toDateTimeString());
+		$this->assertEquals('2015-02-22 14:48:34', $test->toDateTimeString());
 	}
 
 	public function testCanCompareTwoObjects()
@@ -224,6 +224,13 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('',$test->some_random_non_existent_property_name);
 	}
 
+	public function testReturnIssetValueDependingOnWhetherAGetterIsValid()
+	{
+		$test = new FormattedCarbon;
+		$this->assertTrue(isset($test->day));
+		$this->assertFalse(isset($test->some_random_non_existent_property_name));
+	}
+
 	public function testReturnNothingForNonApplicableResults()
 	{
 		$test = new FormattedCarbon(FormattedCarbon::NONE);
@@ -259,7 +266,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 			['toDateString', 'date'],
 			['toFormattedDateString', 'formatteddate'],
 			// ['toTimeString', 'time'],				// overridden in default config
-			// ['toDateTimeString', 'datetime'],		// overridden in default config
+			['toDateTimeString', 'datetime'],		
 			['toDayDateTimeString', 'daydatetime'],
 			['toAtomString', 'atom'],
 			['toCookieString', 'cookie'],
@@ -281,6 +288,13 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($test->getCarbon()->toAtomString(), $test->toAtomString());
 		$this->assertEquals($test->getCarbon()->toAtomString(), $test->style('atom'));
 		$this->assertEquals($test->getCarbon()->toAtomString(), $test->atom);
+	}
+
+	public function testReturnDefaultStyleIfStringRequested()
+	{
+		$test = new FormattedCarbon;
+		$this->assertEquals('2/22/2015', $test->style('default'));
+		$this->assertEquals('2/22/2015', $test);
 	}
 
 	// public function testReturnDefaultIfStyleNotFound()

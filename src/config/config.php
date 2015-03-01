@@ -41,7 +41,8 @@ return array(
 
         'title' => 'l, F j, Y',
         'long' => 'D, M j, Y g:ia',
-        'datetime' => 'n/j/Y g:ia',
+        'full' => 'n/j/Y g:ia',
+        // 'time' => 'H:i:s',   // replace Carbon's time definition with ours
         'time' => 'g:ia',
 
         'short' => 'n/j/Y',
@@ -55,8 +56,9 @@ return array(
         'day_only' => 'n/j',
 
         'sql' => 'Y-m-d',
-        'full' => 'Y-m-d H:i:s',
-        'url' => 'Y-m-d',
+        'sql_date' => 'Y-m-d 00:00:00',
+        'datetime' => 'Y-m-d H:i:s',
+        'url' => 'Y-m-d\THisO',
         'timestamp' => 'U',
     ),
 
@@ -73,14 +75,14 @@ return array(
     |
     */
     'range' => array(
-        'default' => '$start &ndash; $end',
-        'title' => 'From $start to $end',
-        'url' => 'start={$start}&end={$end}',
+        'default' => '{$start->default} &ndash; {$end->default}',
+        'title' => 'From $start->title to $end->title',
+        'url' => 'start={$start->url}&end={$end->url}',
     ),
     'range-single' => array(
-        'default' => '',
-        'title' => 'For $start',
-        'url' => 'date={$start}',        
+        'default' => '$start->default',
+        'title' => 'For $start->title',
+        'url' => 'date={$start->url}',
     ),
 
     /*
@@ -90,7 +92,7 @@ return array(
     |
     | We can use a closure to calculate other values. 
     |
-    | Pass $start and $end or $date values to the closure. 
+    | Pass $start and $end values to the closure. 
     |
     */
     'calculations' => array(
@@ -101,7 +103,7 @@ return array(
 
         // round months to the nearest two weeks
         'months' => function($start, $end) { 
-            return $end->copy()->addDays(14)->diffInMonths($start); 
+            return $end->copy()->addDays(14)->diffInMonths($start->getCarbon()); 
         },
 
         'decimal' => function($date) {
@@ -109,6 +111,17 @@ return array(
             return round($hours,1);
         },
 
+        'sql_range' => function($start, $end=Null) {
+            return [$start->copy()->startOfDay()->format('Y-m-d'),
+                $end->copy()->endOfDay()->format('Y-m-d H:i:s')];
+        },
+
+        'human' => function($date) {
+            if ($date->diff($date->now())->days < 3)
+                return $date->diffForHumans(); 
+
+            return $date->format('n/j/Y \a\t g:ia');
+        }
     ),
 
 );

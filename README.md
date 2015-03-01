@@ -1,3 +1,10 @@
+<a href="mailto://joel@kumuwai.com"><img src="http://img.shields.io/badge/author-joel@kumuwai.com-blue.svg" alt="Author"></a>
+<a href="https://github.com/kumuwai/date-range"><img src="http://img.shields.io/badge/source-kumuwai%2Fdate--range-blue.svg" alt="Source Code"></a>
+<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software License"></a>
+<a href="https://travis-ci.org/kumuwai/date-range"><img src="https://img.shields.io/travis/kumuwai/date-range/master.svg" alt="Build Status"></a>
+<a href="https://scrutinizer-ci.com/g/kumuwai/date-range"><img src="https://img.shields.io/scrutinizer/g/kumuwai/date-range.svg" alt="Quality Score"></a>
+
+
 FormattedCarbon
 ===============
 The FormattedCarbon class decorates Carbon objects with user-defined styles. Each style to use for a project is specified in the configuration file. These are included by default:
@@ -47,10 +54,10 @@ When you create a FormattedCarbon object, it can be used just like a Carbon obje
 
 It will also use the above formats to output Carbon strings, so each of these are functionally equivalent:
 
-    $date->getCarbon()->toAtomString();
-    $date->toAtomString();
-    $date->style('atom');
-    $date->atom;
+    $date->getCarbon()->toAtomString();     // will always be Carbon value
+    $date->toAtomString();                  // will always be Carbon value
+    $date->style('atom');                   // can be overridden in config file
+    $date->atom;                            // can be overridden in config file
 
 Please note that any custom-defined styles in the configuration file will override the default Carbon values. Carbon specifies these string output functions:
 

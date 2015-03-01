@@ -17,19 +17,22 @@
 <body>
 	<?php
 		require_once '../vendor/autoload.php';
-		use Kumuwai\DateRange\FormattedCarbon;
+		use Kumuwai\DateRange\DateRange;
 
 		$start = (isset($_REQUEST['start']) ? $_REQUEST['start'] : '');
+		$end = (isset($_REQUEST['end']) ? $_REQUEST['end'] : '');
 
 		try {
-			$date = new FormattedCarbon($start);
+			$date = new DateRange($start, $end);
 		} catch (Exception $e) {
-			$date = new FormattedCarbon;
+			$date = new DateRange;
 		}
 	?>
 	<form>
 		<label for="start">Start:</label>
 		<input type="text" id="start" name="start" value="<?php echo $start; ?>">
+		<label for="end">End:</label>
+		<input type="text" id="end" name="end" value="<?php echo $end; ?>">
 		<button type="submit">Submit</button>
 	</form>
 
@@ -37,8 +40,10 @@
 	<table>
 		<thead><tr><th>Style Name</th><th>PHP Format</th><th>Example Result</th></tr></thead>
 	<?php
-		foreach($date->getStyles() as $style=>$value)
+		foreach($date->getStyles() as $style=>$value) {
+			$value = (is_string($value)) ? $value : '(function)';
 			echo "<tr><td>$style</td><td>$value</td><td>{$date->style($style)}</td></tr>";
+		}
 	?></table>
 	
 	<h2>Carbon Defined Styles</h2>
