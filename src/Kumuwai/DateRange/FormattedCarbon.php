@@ -1,6 +1,6 @@
 <?php namespace Kumuwai\DateRange;
 
-// use InvalidArgumentException;
+use InvalidArgumentException;
 use Carbon\Carbon;
 use DateTime;
 
