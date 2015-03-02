@@ -1,9 +1,14 @@
 <?php namespace Kumuwai\DateRange;
 
+// use InvalidArgumentException;
 use Carbon\Carbon;
 use DateTime;
 
-
+/**
+ * Decorate Carbon objects with user-defined styles
+ * 
+ * @method boolean eq(Carbon $value)
+ */
 class FormattedCarbon
 {
 	const NONE = -1;
@@ -15,7 +20,11 @@ class FormattedCarbon
     public function __construct($time = null, $tz = null, $config = null)
     {
     	$this->config = $config ?: new Config;
+    	$this->build($time, $tz);
+	}
 
+	public function build($time = null, $tz = null)
+	{
     	if (is_numeric($time) && $time == self::NONE)
     		return $this->isNotApplicable = True;
 
@@ -28,7 +37,7 @@ class FormattedCarbon
         if (is_numeric($time))
         	return $this->carbon = Carbon::createFromTimestamp($time);
 
-        $this->carbon = Carbon::parse($time, $tz);
+        return $this->carbon = Carbon::parse($time, $tz);
 	}
 
 	public function none()

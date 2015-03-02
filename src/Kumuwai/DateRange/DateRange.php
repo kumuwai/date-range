@@ -85,12 +85,14 @@ class DateRange
 		if ( ! isset($this->start->$style))
 			return '';
 
+		// Lookup the format string for the range
 		$format = $this->config->get("date-range::$section.$style");
 		if ( ! $format) {
 			$format = $this->config->get("date-range::$section.default");
 			$format = str_replace('default', $style, $format);
 		}
 
+		// start and end are interpolated into the format
 		$start = $this->start;
 		$end = $this->end;
 		return eval( "return \"{$format}\";" );

@@ -10,7 +10,7 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->now = Carbon::parse('2015-02-22 2:48:34pm');
+		$this->now = Carbon::parse('2015-02-22 2:48:34pm', 'UTC');
 		Carbon::setTestNow($this->now);
 	}
 
@@ -75,7 +75,7 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCanShowDataInDesiredFormat($style, $expected)
 	{
-		$test = new DateRange('2/22/15 12:48:34pm', '3/1/15 2:22:15pm');
+		$test = new DateRange('2/22/15 12:48:34pm', '3/1/15 2:22:15pm', 'HST');
 		$this->assertEquals($expected, $test->style($style));
 		$this->assertEquals($expected, $test->$style);
 	}
@@ -116,13 +116,13 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
 
 	public function testCanGetHumanReadableFormats()
 	{
-		$test = new DateRange('2/22/15 12:48:34pm');
+		$test = new DateRange('2/22/15 12:48:34pm', Null, 'UTC');
 		$this->assertEquals('2 hours ago', $test->human);
 		
-		$test = new DateRange('2/20/15 12:48:34pm');
+		$test = new DateRange('2/20/15 12:48:34pm', Null, 'UTC');
 		$this->assertEquals('2 days ago', $test->human);
 
-		$test = new DateRange('2/14/15 12:48:34pm');
+		$test = new DateRange('2/14/15 12:48:34pm', Null, 'UTC');
 		$this->assertEquals('2/14/2015 at 12:48pm', $test->human);
 	}
 

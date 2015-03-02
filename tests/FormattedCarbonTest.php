@@ -10,7 +10,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->now = Carbon::parse('2015-02-22 2:48:34pm');
+		$this->now = Carbon::parse('2015-02-22 2:48:34pm', 'HST');
 		Carbon::setTestNow($this->now);
 	}
 
@@ -33,7 +33,7 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 
 	public function testCanCreateWithTimestamp()
 	{
-		$test = new FormattedCarbon(1422857565);
+		$test = new FormattedCarbon(@1422857565);
 		$this->assertEquals('2015-02-01 20:12:45', $test->toSql());
 	}
 
@@ -123,6 +123,15 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
             // ['createFromTime', [12, 48, 34], '12:48:34'],				// includes current DATE
             // ['createFromTimestampUTC', [1422857565], '2015-02-01 20:12:45'],  // Converts based on user tz
 		);
+	}
+
+	public function testCanSetTimeAfterObjectConstructed()
+	{
+		$test = new FormattedCarbon;
+		$this->assertEquals('2/22/15', $test->tiny);
+		
+		$test->build('2015-03-01');
+		$this->assertEquals('3/1/15', $test->tiny);
 	}
 
 	public function testCanCopy()
@@ -254,8 +263,8 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCanReturnCarbonFormattedStrings($carbon, $style)
 	{
-		$test = new FormattedCarbon;
-		$expected = new Carbon($this->now);
+		$test = new FormattedCarbon(Null, 'HST');
+		$expected = new Carbon($this->now, 'HST');
 		$this->assertEquals($expected->$carbon(), $test->style($style));
 		$this->assertEquals($expected->$carbon(), $test->$style);
 	}
