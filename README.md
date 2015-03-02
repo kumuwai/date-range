@@ -1,4 +1,4 @@
-<a href="mailto://joel@kumuwai.com"><img src="http://img.shields.io/badge/author-joel@kumuwai.com-blue.svg" alt="Author"></a>
+<a href="mailto://joel@kumuwai.com"><img src="http://img.shields.io/badge/author-joel-blue.svg" alt="Author"></a>
 <a href="https://github.com/kumuwai/date-range"><img src="http://img.shields.io/badge/source-kumuwai%2Fdate--range-blue.svg" alt="Source Code"></a>
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software License"></a>
 <a href="https://travis-ci.org/kumuwai/date-range"><img src="https://img.shields.io/travis/kumuwai/date-range/master.svg" alt="Build Status"></a>
