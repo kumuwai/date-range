@@ -5,7 +5,8 @@
         "nesbot/carbon": "~1.14.0"
     },
     "require-dev": {
-        "mockery/mockery": "~0.9.3"
+        "mockery/mockery": "~0.9.3",
+        "satooshi/php-coveralls": "dev-master"
     },
     "license": "MIT",
     "authors": [
