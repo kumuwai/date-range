@@ -7,7 +7,7 @@ use DateTime;
 /**
  * Decorate Carbon objects with user-defined styles
  * 
- * @method boolean eq(Carbon $value)
+ * @method boolean eq($other)
  */
 class FormattedCarbon
 {

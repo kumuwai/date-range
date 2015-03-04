@@ -1,6 +1,7 @@
 {
-    "name": "kumuwai/date_range",
+    "name": "kumuwai/date-range",
     "description": "Conveniently format and use Carbon date ranges",
+    "keywords": [ "date", "time", "DateTime", "range", "carbon" ],
     "require": {
         "nesbot/carbon": "~1.14.0"
     },
@@ -16,7 +17,7 @@
         }
     ],
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Kumuwai\\DateRange\\": "src/"
         }
     },
