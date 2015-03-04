@@ -12,7 +12,7 @@ class Config
 
     public function __construct($path = Null)
     {
-        $this->path = $path ?: __DIR__.'/../../config/config.php';
+        $this->path = $path ?: __DIR__.'/config/config.php';
     }
 
     public function get($name)
