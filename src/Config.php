@@ -15,6 +15,12 @@ class Config
         $this->path = $path ?: __DIR__.'/config/config.php';
     }
 
+    /**
+     * Get Laravel-style configuration settings
+     * date-range::path.to.key
+     * 
+     * @param  string $name full path to the key you want to find
+     */
     public function get($name)
     {
         if ( ! $this->file )
@@ -39,6 +45,13 @@ class Config
         return substr($name, $pos === False ? 0 : $pos + 2);
     }
 
+    /**
+     * Resolve a dot-notation path from a multidimensional array
+     * 
+     * @param  array  $arr     array in which to search
+     * @param  string $path    path to search (eg, path.to.key)
+     * @param  any    $default value to return if path not found
+     */
     private function resolve(array $arr, $path, $default = null)
     {
         $current = $arr;

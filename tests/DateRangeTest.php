@@ -1,7 +1,8 @@
-<?php 
+<?php namespace Kumuwai\DateRange;
 
-use Kumuwai\DateRange\DateRange;
+use PHPUnit_Framework_TestCase;
 use Carbon\Carbon;
+use Mockery;
 
 
 class DateRangeTest extends PHPUnit_Framework_TestCase
@@ -125,5 +126,6 @@ class DateRangeTest extends PHPUnit_Framework_TestCase
         $test = new DateRange('2/14/15 12:48:34pm', Null, 'UTC');
         $this->assertEquals('2/14/2015 at 12:48pm', $test->human);
     }
+
 
 }
