@@ -106,6 +106,7 @@ class FormattedCarbon
             return $this->carbon->$name;
 
         $formatted = $this->style($name);
+
         return $formatted ?: '';
     }
 

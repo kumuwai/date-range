@@ -1,8 +1,10 @@
-<?php
+<?php namespace Kumuwai\DateRange;
 
-use Kumuwai\DateRange\FormattedCarbon;
+use PHPUnit_Framework_TestCase;
 use Carbon\Carbon;
-
+use DateTime;
+use DateTimeZone;
+use Mockery;
 
 class FormattedCarbonTest extends PHPUnit_Framework_TestCase
 {
@@ -306,13 +308,17 @@ class FormattedCarbonTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2/22/2015', $test);
     }
 
+    public function testCanGetMultiLayeredItem()
+    {
+        $config = new Config(__DIR__.'/config.php');
+        $test = new FormattedCarbon(Null, Null, $config);
+        $this->assertEquals('02-22', $test->style('foo.bar.bazz'));
+    }
+
     // public function testReturnDefaultIfStyleNotFound()
     // {
 
     // }
 
 }
-
-
-
 
